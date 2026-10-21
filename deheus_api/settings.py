@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
+    'axes',
     'tenant',
     'users',
     'api',
@@ -47,7 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_axes.middleware.AxesMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'deheus_api.urls'
@@ -182,6 +183,6 @@ LOGGING = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    'django_axes.backends.AxesBackend',
+    'axes.backends.AxesBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
