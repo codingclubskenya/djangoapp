@@ -2,7 +2,7 @@ import datetime as dt
 import secrets
 
 from django.utils import timezone
-from rest_framework import generics, status
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -14,6 +14,7 @@ from tenant.middleware import tenant_context
 
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -22,7 +23,7 @@ class LoginView(generics.GenericAPIView):
 
 
 class RefreshTokenView(TokenRefreshView):
-    pass
+    permission_classes = [permissions.AllowAny]
 
 
 class LogoutView(generics.GenericAPIView):
@@ -38,6 +39,7 @@ class LogoutView(generics.GenericAPIView):
 
 
 class ForgotPasswordView(generics.GenericAPIView):
+    permission_classes = [permissions.AllowAny]
     def post(self, request, *args, **kwargs):
         email = request.data.get('email', '').strip()
         if not email:
@@ -61,6 +63,7 @@ class ForgotPasswordView(generics.GenericAPIView):
 
 
 class ResetPasswordView(generics.GenericAPIView):
+    permission_classes = [permissions.AllowAny]
     def post(self, request, *args, **kwargs):
         token = request.data.get('token')
         password = request.data.get('password')
