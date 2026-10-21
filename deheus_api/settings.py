@@ -5,6 +5,9 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+import pymysql
+pymysql.install_as_mysql()
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-secret-key-change-in-production')
@@ -109,6 +112,9 @@ REST_FRAMEWORK = {
         'auth': '10/minute',
     },
 }
+
+# Custom pagination class path
+DEFAULT_PAGINATION_CLASS = 'rest_framework.pagination.PageNumberPagination'
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Deheus API',
