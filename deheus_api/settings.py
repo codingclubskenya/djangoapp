@@ -8,6 +8,12 @@ from pathlib import Path
 import pymysql
 pymysql.install_as_MySQLdb()
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-secret-key-change-in-production')
@@ -156,6 +162,9 @@ STATIC_ROOT = os.environ.get('STATIC_ROOT', str(BASE_DIR / 'static'))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOG_FILE = os.environ.get('LOG_FILE', str(BASE_DIR / 'logs' / 'django.log'))
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -163,7 +172,7 @@ LOGGING = {
         'console': {'class': 'logging.StreamHandler'},
         'file': {
             'class': 'logging.FileHandler',
-            'filename': os.environ.get('LOG_FILE', str(BASE_DIR / 'logs' / 'django.log')),
+            'filename': LOG_FILE,
         },
     },
     'loggers': {
