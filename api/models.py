@@ -1,16 +1,7 @@
-"""
-Django models for all CRM entities.
-Maps to existing MySQL tables in the `longhorn` database.
-All models are tenant-aware via TenantAwareManager.
-"""
 import uuid
-from django.db import models
-from django.contrib.postgres.fields import JSONField as PG_JSONField
 
-try:
-    from django.db.models import JSONField
-except ImportError:
-    JSONField = PG_JSONField
+from django.db import models
+from django.db.models import JSONField
 
 from common.managers import TenantAwareManager
 from tenant.models import Tenant
